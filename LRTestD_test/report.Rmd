@@ -1,0 +1,58 @@
+<h4>LRT Report for `r drugSearch$name`.</h4>
+
+LRT Results based on Total Events
+
+`r paste0('Critical Value=', getprr()$critival$critval)`
+```{r prr, fig.width=5, echo=FALSE}
+kable(prr(), digits=2, escape=FALSE)
+```
+
+```{r cloudprr2, fig.height=8, fig.width=8, echo=FALSE, fig.keep='last', error=FALSE, warning=FALSE}
+ cloudout(getprr()$comb, paste('LLR for Events in Reports That Contain',drugSearch$name) )
+```
+
+```{r textplot, fig.height=8, fig.width=8, echo=FALSE}
+textplot()
+```
+
+<h5>Simulation Results for Event Based LRT</h5><br>
+```{r simplot, fig.height=6, fig.width=8, echo=FALSE}
+mydf<-getprr()
+ 
+  mycrit <- mydf$critival$critval
+  vals <- mydf$critival$mymax
+  myrange <- range(vals)
+  interval <- (mycrit - myrange[1])/20
+  mybreaks <- c( seq(myrange[1], mycrit, interval ),  seq(mycrit+interval,  myrange[2] + interval, interval ) )
+  hist(vals , breaks=mybreaks, 
+           main="Histogram of Simulated Distribution of LLR", 
+           xlab='Loglikelihood Ratio', xaxt='n',prob=TRUE,col="cyan")
+  d<-density(vals)
+  dd<-approxfun(d$x,d$y)
+  text(x=mycrit,y=dd(mean(vals)), paste('Rejection Region, LLR >', round(mycrit, 2) ), pos=4, col='red')
+  smallbreaks <- seq(0, max(mybreaks), 1)
+  
+  smallbreaks <-  c( round(mycrit, 2), smallbreaks )
+  axis(1, smallbreaks, las=3 )
+  abline(v=mycrit, col='red', lwd=2)
+```
+
+
+<h5>Analyzed EventCounts for Drug</h5><br>
+
+
+```{r AnalyzedEventCountsforDrug, echo=FALSE}
+kable(eventcount()$evcount, digits=2, escape=FALSE)
+```
+
+
+<h5>Analyzed Event Counts for All Drugs</h5><br>
+
+
+```{r All, echo=FALSE}
+kable(totaleventcount(), digits=2, escape=FALSE)
+```
+
+```{r cloudall2, fig.height=8, fig.width=8, fig.keep='last', echo=FALSE}
+cloudall()
+```
