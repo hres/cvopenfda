@@ -68,30 +68,18 @@ shinyUI(fluidPage(
                                placement='top'), 
                  conditionalPanel(
                    condition = "1 == 2",
-                   conditionalPanel(
-                     condition="input.v1=='Active_Ingredient'",
-                     selectizeInput_p("t1", "Active Ingredient",
-                                      choices= c("Start typing to search..."="",ing_choices),
-                                      HTML( tt('ing1') ), tt('ing2'),
-                                      placement='left')
-                   ),
                    
-                   conditionalPanel(
-                     condition="input.v1=='DRUGNAME'",
-                     selectizeInput_p("t1_1", "Name of Drug",
-                                      choices= c("Start typing to search..."="",drug_choices),
-                                      HTML( tt('drugname1') ), tt('drugname2'),
-                                      placement='left')),
+                   selectizeInput("t1", "Active Ingredient",
+                                      choices=NULL),
                    
-                   numericInput_p('limit', 'Maximum number of event terms', 50,
-                                  1, 100, step=1, 
-                                  HTML( tt('limit1') ), tt('limit2'),
-                                  placement='bottom'), 
+                   selectizeInput("t1_1", "Name of Drug",
+                                      choices=NULL),
                    
-                   numericInput_p('start', 'Rank of first event', 1,
-                                  1, 999, step=1, 
-                                  HTML( tt('limit1') ), tt('limit2'),
-                                  placement='bottom')          
+                   numericInput('limit', 'Maximum number of event terms', 50,
+                                  1, 100, step=1), 
+                   
+                   numericInput('start', 'Rank of first event', 1,
+                                  1, 999, step=1)          
                    
                  ),
                  wellPanel(

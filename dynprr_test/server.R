@@ -349,13 +349,13 @@ output$coquery<-DT::renderDataTable(
 
 output$cloudcoquery <- renderPlot({  
   mydf <-codrug()
-  if ( is.data.frame(mydf) )
-  {
-    mytitle <- paste('Drug in Reports That Contain',drugSearch$name)
-    return( getcloud(mydf, title=mytitle ) ) 
-  } else  {
-    return( data.frame(Term=paste( 'No events for',drugSearch$name) ) )
-  }  
+ 
+  validate(
+    need(nrow(mydf)>1,'Insufficient data for plotting')
+  )
+  mytitle <- paste('Drug in Reports That Contain',drugSearch$name)
+  return( getcloud(mydf, title=mytitle ) ) 
+  
   
 }, height=900, width=900 )
 
@@ -376,13 +376,13 @@ output$coqueryE<-DT::renderDataTable(
 
 output$cloudcoqueryE <- renderPlot({  
   mydf <- coevent()
-  if ( is.data.frame(mydf) )
-  {
-    mytitle <- paste('Events in Reports That Contain',input$t2)
-    return( getcloud(mydf, title=mytitle ) ) 
-  } else  {
-    return( data.frame(Term=paste( 'No events for',input$t2 ) ) )
-  }  
+  
+  validate(
+    need(nrow(mydf)>1,'Insufficient data for plotting')
+  )
+  mytitle <- paste('Events in Reports That Contain',input$t2)
+  return( getcloud(mydf, title=mytitle ) ) 
+ 
   
 }, height=900, width=900 )
 

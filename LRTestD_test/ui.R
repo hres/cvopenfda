@@ -67,38 +67,28 @@ shinyUI(fluidPage(
                  selectInput_p("v1", 'Drug Variable' ,c('Active_Ingredient','DRUGNAME'), 
                                HTML( tt('drugvar1') ), tt('drugvar2'),
                                placement='top'), 
-                 conditionalPanel(
+                  conditionalPanel(
                    condition = "1 == 2",
-                   conditionalPanel(
-                     condition="input.v1=='Active_Ingredient'",
-                     selectizeInput_p("t1", "Active Ingredient",
-                                      choices= c("Start typing to search..."="",ing_choices),
-                                      HTML( tt('ing1') ), tt('ing2'),
-                                      placement='left')
-                   ),
-                   
-                   conditionalPanel(
-                     condition="input.v1=='DRUGNAME'",
-                     selectizeInput_p("t1_1", "Name of Drug",
-                                      choices= c("Start typing to search..."="",drug_choices),
-                                      HTML( tt('drugname1') ), tt('drugname2'),
-                                      placement='left')),
-                   
-                   numericInput_p('limit', 'Maximum number of event terms', 50,
-                                  1, 100, step=1, 
-                                  HTML( tt('limit1') ), tt('limit2'),
-                                  placement='left'), 
-                   
-                   numericInput_p('start', 'Rank of first event', 1,
-                                  1, 999, step=1, 
-                                  HTML( tt('limit1') ), tt('limit2'),
-                                  placement='left'),         
-                   
-                   numericInput_p('numsims', 'Number of Simulations', 1000,
-                                  1000, 50000, step=1, 
-                                  HTML( tt('numsims1') ), tt('numsims2'),
-                                  placement='left')
-                 ),
+                    conditionalPanel(
+                      condition="input.v1=='Active_Ingredient'",
+                      selectizeInput("t1", "Active Ingredient",
+                                       choices= NULL)),
+                 
+                    conditionalPanel(
+                      condition="input.v1=='DRUGNAME'",
+                      selectizeInput("t1_1", "Name of Drug",
+                                       choices= NULL)),
+                 
+                    numericInput('limit', 'Maximum number of event terms', 50,
+                                   1, 100,step=1),
+                 
+                    numericInput('start', 'Rank of first event', 1,
+                                   1, 999, step=1),
+                 
+                    numericInput('numsims', 'Number of Simulations', 1000,
+                                   1000, 50000, step=1)
+                                   
+                  ),
                  wellPanel(
                  bsButton("tabBut", "Select Drug and # of Events...", style='primary'),
                  br(),

@@ -34,7 +34,7 @@ observe({
 
 #reactive value upon updating:
 
-updatevars <- reactive({
+updatevars<-reactive({
   
   input$update
   isolate( {
@@ -197,8 +197,13 @@ prr <- reactive({
 
 
 textplot <- reactive({ 
+  
   if (drugSearch$name!="") {
     mydf <- getprr()$comb
+    
+  validate(
+    need(any(mydf[,2])>0,'Insufficient data to calculate LLR')
+  )
     
     y <- mydf[,2]
     x <- mydf[,4]
@@ -216,7 +221,7 @@ textplot <- reactive({
 #build the modal: 
 output$mymodal <- renderText({
   if (input$update > 0){
-    updatevars()
+   updatevars()
     toggleModal(session, 'modalExample', 'close')
   }
     return('')
@@ -338,6 +343,11 @@ output$cloudprr <- renderPlot({
   )
    
     mydf <- getprr()$comb
+    
+    validate(
+      need(any(mydf[,2])>0,'Insufficient data to calculate LLR')
+    )
+    
     mydf <- data.frame(mydf[,1], mydf[,'LLR'])
     cloudout(mydf, paste('LLR for Events in Reports That Contain',drugSearch$name) )
 
@@ -355,7 +365,11 @@ output$simplot<-renderPlot({
   )
   
   mydf<-getprr()
- 
+  
+  validate(
+    need(any(mydf$comb$LLR)>0,'Insufficient data to calculate LLR')
+  )
+  
   mycrit <- mydf$critival$critval
   vals <- mydf$critival$mymax
   myrange <- range(vals)

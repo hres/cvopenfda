@@ -39,15 +39,17 @@ hcopen<- dbPool(drv=RPostgreSQL::PostgreSQL(),
 
 cv_drug_rxn_meddra <- hcopen %>% tbl("cv_drug_rxn_meddra")%>%dplyr::select(REPORT_ID,DRUGNAME,ing,PT_NAME_ENG,month)%>%as.data.table()
 #count_monthly_hlt<-count(cv_drug_rxn_2006, ing, HLT_NAME_ENG, month) %>% as.data.frame()
+
 cv_indication<-hcopen%>%tbl("cv_report_drug_indication_joined_20160630")%>%
 dplyr::  select(REPORT_ID,INDICATION_NAME_ENG)%>%
-  filter(!is.null(INDICATION_NAME_ENG))    
+         filter(!is.null(INDICATION_NAME_ENG))    
 
 # PT-HLT mapping
 drug_PT_HLT <- cv_drug_rxn_meddra%>%
 dplyr::  select(DRUGNAME,ing, PT_NAME_ENG) %>%
-  distinct() %>%
-  filter(!is.na(PT_NAME_ENG))
+  filter(!is.na(PT_NAME_ENG))%>%
+  distinct()
+
 # drug and adverse event dropdown menu choices
 ing_choices <-drug_PT_HLT %>% distinct(ing)%>%`$`("ing")%>%sort()
 drug_choices<-drug_PT_HLT %>% distinct(DRUGNAME)%>%`$`("DRUGNAME")%>%sort()

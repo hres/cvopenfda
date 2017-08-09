@@ -58,7 +58,7 @@ shinyUI(fluidPage(
                    conditionalPanel(
                      condition="input.v1=='Active_Ingredient'",
                      selectizeInput_p("t1", "Active Ingredient",
-                                      choices= c("Start typing to search..."="",ing_choices),
+                                      choices= c("Start typing to search..."=""),
                                       HTML( tt('ing1') ), tt('ing2'),
                                       placement='left')
                    ),
@@ -66,7 +66,7 @@ shinyUI(fluidPage(
                    conditionalPanel(
                      condition="input.v1=='DRUGNAME'",
                      selectizeInput_p("t1_1", "Name of Drug",
-                                      choices= c("Start typing to search..."="",drug_choices),
+                                      choices= c("Start typing to search..."=""),
                                       HTML( tt('drugname1') ), tt('drugname2'),
                                       placement='left')),
                    

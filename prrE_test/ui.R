@@ -65,20 +65,14 @@ shinyUI(fluidPage(
                    conditionalPanel(
                      condition = "1 == 2",
                    
-                   selectizeInput_p("t2", "Adverse Event",
-                                      choices= c("Start typing to search..."=""),
-                                    HTML( tt('eventname1') ), tt('eventname2'),
-                                    placement='left'),
+                   selectizeInput("t2", "Adverse Event",
+                                      choices=NULL),
                    
                    numericInput_p('limit', 'Maximum number of event terms', 50,
-                                  1, 100, step=1, 
-                                  HTML( tt('limit1') ), tt('limit2'),
-                                  placement='bottom'), 
+                                  1, 100, step=1), 
                    
                    numericInput_p('start', 'Rank of first event', 1,
-                                  1, 999, step=1, 
-                                  HTML( tt('limit1') ), tt('limit2'),
-                                  placement='bottom')          
+                                  1, 999, step=1)          
                    
                  ),
                  wellPanel(

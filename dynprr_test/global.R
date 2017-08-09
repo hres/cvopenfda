@@ -40,8 +40,8 @@ cv_drug_rxn_meddra <- hcopen %>% tbl("cv_drug_rxn_meddra")%>%select(REPORT_ID,DR
 # PT-HLT mapping
 drug_PT_HLT <- cv_drug_rxn_meddra%>%
   select(DRUGNAME,ing, PT_NAME_ENG) %>%
-  distinct() %>%
-  filter(!is.na(PT_NAME_ENG))
+  filter(!is.na(PT_NAME_ENG))%>%
+  distinct()
 # drug and adverse event dropdown menu choices
 ing_choices <-drug_PT_HLT %>% distinct(ing)%>%`$`("ing")%>%sort()
 drug_choices<-drug_PT_HLT %>% distinct(DRUGNAME)%>%`$`("DRUGNAME")%>%sort()

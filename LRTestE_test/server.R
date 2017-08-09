@@ -171,6 +171,11 @@ textplot <- reactive({
   if (input$t2!="") {
     mydf <- getprr()$comb
     
+    validate(
+      need(any(mydf[,2])>0,'Insufficient data to calculate LLR')
+    )
+    
+    
     y <- mydf[,2]
     x <- mydf[,4]
     w <- mydf[,1]
@@ -305,6 +310,11 @@ output$cloudprr <- renderPlot({
   )
    
   mydf <- getprr()$comb
+  
+  validate(
+    need(any(mydf[,'LLR'])>0,'Insufficient data to calculate LLR')
+  )
+  
   mydf <- data.frame(mydf[,1], mydf[,'LLR'])
   cloudout(mydf, paste('LLR for Events in Reports That Contain',input$t2) )
   
@@ -321,6 +331,10 @@ output$simplot<-renderPlot({
   )
   
   mydf<-getprr()
+  
+  validate(
+    need(any(mydf$comb$LLR)>0,'Insufficient data to calculate LLR')
+  )
   
   mycrit <- mydf$critival$critval
   vals <- mydf$critival$mymax

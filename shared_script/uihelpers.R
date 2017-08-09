@@ -1,4 +1,4 @@
-require(shinyBS)
+
 maketabset <- function( outputs, types=c('html', 'plot'), 
                         names=c( "Table2","Word Cloud2" )
                         , 
